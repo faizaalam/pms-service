@@ -4,6 +4,8 @@ package com.cmed.prescriptionmanagement.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 @Entity
@@ -12,10 +14,15 @@ public class Prescription {
     @GeneratedValue
     private Long id;
     private LocalDate prescriptionDate;
+    @NotNull
     private String name;
+    @NotNull
+    @Positive
     private Integer age;
+    @NotNull
     private Gender gender;
     private String diagnosis;
+    @NotNull
     private String prescribedMedicine;
     private  LocalDate visitDate;
 
