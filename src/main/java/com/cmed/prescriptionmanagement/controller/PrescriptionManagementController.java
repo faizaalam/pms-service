@@ -2,12 +2,13 @@ package com.cmed.prescriptionmanagement.controller;
 
 import com.cmed.prescriptionmanagement.model.Prescription;
 import com.cmed.prescriptionmanagement.repository.PrescriptionRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.ResponseEntity.status;
@@ -23,7 +24,12 @@ public class PrescriptionManagementController {
     }
 
     @GetMapping()
-    public ResponseEntity<?>  findAll() {
+    public ResponseEntity<?>  findAll(@RequestParam(value = "prescriptionDate", required = false)
+                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                  LocalDate prescriptionDate) {
+        if (prescriptionDate != null) {
+            return ResponseEntity.ok(prescriptionRepository.findAllByPrescriptionDate(prescriptionDate));
+        }
     return ResponseEntity.ok(prescriptionRepository.findAll());
     }
 
