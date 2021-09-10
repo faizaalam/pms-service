@@ -14,7 +14,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping(value="/api/v1/prescriptions")
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PrescriptionManagementController {
     private final PrescriptionRepository prescriptionRepository;
 

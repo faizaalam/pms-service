@@ -1,7 +1,9 @@
 package com.cmed.prescriptionmanagement;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.cmed.prescriptionmanagement.model.ERole;
 import com.cmed.prescriptionmanagement.model.Role;
@@ -35,9 +37,17 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String...args) throws Exception {
 
-        userRepository.save(new User("user", "user@gmail.com", passwordEncoder.encode("123")));
         roleRepository.save(new Role(ERole.ROLE_ADMIN));
         roleRepository.save(new Role(ERole.ROLE_USER));
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName(ERole.ROLE_USER).orElse(null));
+        User newUser = new User();
+        newUser.setUsername("user");
+        newUser.setEmail("user@gmail.com");
+        newUser.setPassword(passwordEncoder.encode("123"));
+        newUser.setRoles(roles);
+        userRepository.save(newUser);
 
         logger.info("# of users {}", userRepository.count());
 
