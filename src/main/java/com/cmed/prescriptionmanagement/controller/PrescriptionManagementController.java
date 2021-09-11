@@ -24,11 +24,20 @@ public class PrescriptionManagementController {
     }
 
     @GetMapping()
-    public ResponseEntity<?>  findAll(@RequestParam(value = "prescriptionDate", required = false)
+    public ResponseEntity<?>  findAll(@RequestParam(value = "reportDate", required = false)
                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                  LocalDate prescriptionDate) {
-        if (prescriptionDate != null) {
-            return ResponseEntity.ok(prescriptionRepository.findAllByPrescriptionDate(prescriptionDate));
+                                                  LocalDate reportDate,
+                                      @RequestParam(value = "fromMonth", required = false)
+                                         Integer fromMonth,
+                                      @RequestParam(value = "toMonth", required = false)
+                                                  Integer toMonth
+                                      ) {
+        if (reportDate != null) {
+            return ResponseEntity.ok(prescriptionRepository.findAllByPrescriptionDate(reportDate));
+        }
+        if (fromMonth != null) {
+            return ResponseEntity.ok(prescriptionRepository.findAllBetweenMonths(fromMonth, toMonth));
+
         }
     return ResponseEntity.ok(prescriptionRepository.findAll());
     }

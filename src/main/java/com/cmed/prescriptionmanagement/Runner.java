@@ -1,13 +1,13 @@
 package com.cmed.prescriptionmanagement;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.cmed.prescriptionmanagement.model.ERole;
-import com.cmed.prescriptionmanagement.model.Role;
-import com.cmed.prescriptionmanagement.model.User;
+import com.cmed.prescriptionmanagement.model.*;
+import com.cmed.prescriptionmanagement.repository.PrescriptionRepository;
 import com.cmed.prescriptionmanagement.repository.RoleRepository;
 import com.cmed.prescriptionmanagement.repository.UserRepository;
 import org.slf4j.Logger;
@@ -32,7 +32,6 @@ public class Runner implements CommandLineRunner {
 
     @Autowired
     RoleRepository roleRepository;
-
 
     @Override
     public void run(String...args) throws Exception {
